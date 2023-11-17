@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> الاحـــاديث الشـــريفة </title>
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=thuluth-decorated" />
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=cairo-bold" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'cairo-bold';
+            outline: none;
+        }
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        body {
+            direction: rtl;
+            scroll-behavior: smooth;
+        }
+
+        ul.li {
+            list-style: none;
+        }
+        .container {
+            max-width: 1450px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 30px;
+
+        }
+        section {
+            padding: 70px 0;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            transition: .5s all ease-in-out;
+            background-color: rgb(8, 9, 9);
+
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            color: rgb(255, 255, 255);
+            transition: .5s all ease-in-out;
+        }
+
+        .header :active {
+            background-color: rgb(0, 0, 0, 6);
+        }
+
+        .header .active .container {
+            height: 80px;
+
+        }
+
+        .header ul {
+            display: flex;
+
+        }
+
+        .header ul li {
+            position: relative;
+            cursor: pointer;
+            list-style: none;
+            margin: 0 15px;
+        }
+
+        .header ul li::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            background-color: rgb(255, 255, 255);
+            height: 2px;
+            transition: .3s all ease-in-out;
+            width: 0;
+        }
+
+        .header li.active ::after,
+        .header li:hover::after {
+            width: 100%;
+        }
+
+        .header .bars {
+            display: none;
+        }
+
+        .header li :not(:first-of-type),
+        .header li :not(:last-of-type) {
+
+            margin: 0 15px;
+        }
+
+        .header .logo {
+            font-family: 'thuluth-decorated';
+            font-size: 39px;
+            cursor: pointer;
+
+        }
+        .main .container {
+            min-height: 100vh;
+        }
+
+        .xx {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+
+        .main .title {
+            position: absolute;
+            top: 40%;
+            transform: translatev(-50%);
+            color: #000000;
+
+        }
+        .title .btn i {
+            font: size 25px;
+            margin-right: 20px;
+
+        }
+        .title .btn:hover {
+            color: #fc0707;
+        }
+
+        .title .btn:hover::after {
+            width: 100%;
+        }
+
+
+        section h3 {
+            font-size: 30px;
+            text-align: center;
+            color: #001cbb;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        section h3::after,
+        section h3::before {
+            content: "";
+            position: absolute;
+            background-color: #0498c5;
+            height: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+
+        }
+
+        section h3::after {
+            width: 50px;
+            bottom: -10px;
+        }
+
+        section h3::before {
+            width: 100px;
+            bottom: 0px;
+
+        }
+
+        .hadithcontainer {
+            min-height: 350px;
+            position: relative;
+            box-shadow: 4px 4px 4px 0 #d1d9e6 inset,
+                -4px -4px 4px 0px #d1d9e6 inset;
+            color: #232323;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            padding-top: 70px;
+
+        }
+        .hadith .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+
+        }
+
+        .hadith .buttons div {
+            background: linear-gradient(60deg, #0a15b1, #08bddd);
+            box-shadow: 0 4px 20px 0 rgb(0, 0, 0, 14), 0 7px 10px -5px rgb(76, 175, 88, 4);
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .hadith .buttons .number {
+
+            padding: 10px 20px;
+            color: #0d10c2;
+            background: transparent;
+            box-shadow: 0 4px 20px 0 rgb(0, 0, 0, 14), 0 7px 10px -5px rgb(76, 175, 88, 4);
+
+        }
+        .header .bars {
+            display: block;
+            font-size: 25px;
+        }
+
+        .header ul {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 200px;
+            background-color: rgb(0, 0, 0, .6);
+            flex-direction: column;
+            padding: 0 50px;
+            text-align: center;
+            transform: translateX(-100%);
+            transition: .7s transform ease-in-out;
+        }
+
+        .header ul.active {
+            transform: translateX(0);
+        }
+
+        .header li:not(:first-of-type),
+        .header li:not(:Last-of-type) {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"> دلـــــــيل الحيــاة الاسلامــية</div>
+            <nav>
+                <ul>
+                    <a class="xx" href="index.html">
+                        <li>الصفحة الرئسية</li>
+                    </a>
+                    <a class="xx" href="القران الكريم.html">
+                        <li> القران الكريم</li>
+                    </a>
+                    <a class="xx" href="الاحاديث الشريفة.html">
+                        <li>الاحاديث الشريفة</li>
+                    </a>
+                    <a class="xx" href="وصاية الرسول.html">
+                        <li>وصاية الرسول </li>
+                    </a>
+                    <a class="xx" href="اذكار الصباح و المساء.html">
+                        <li> اذكار الصباح و المساء</li>
+                    </a>
+                </ul>
+            </nav>
+            <div class="bars">
+                <li class="fas fa-bars"></li>
+
+            </div>
+
+        </div>
+    </header>
+
+    <section class="hadith">
+        <h3> احــــاديث شـــريفة </h3>
+        <div class="container">
+            <div class="hadithcontainer">
+
+            </div>
+
+            <div class="buttons">
+                <div class="prev">الســابق</div>
+                <div class="number">1/200</div>
+                <div class="next"> التالي</div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let hadithcontainer = document.querySelector('.hadithcontainer');
+        let next = document.querySelector('.buttons .next');
+        let prev = document.querySelector('.buttons .prev');
+        let number = document.querySelector('.buttons .number');
+        let hadithIndex = 1;
+        let totalHadiths = 200;
+
+        Hadithchanger();
+
+        function Hadithchanger() {
+            fetch("https://api.hadith.gading.dev/books/muslim?range=1-200")
+                .then(response => response.json())
+                .then(data => {
+                    let Hadiths = data.data.hadiths;
+
+                    next.addEventListener('click', () => {
+                        hadithIndex = (hadithIndex + 1) % totalHadiths;
+                        changeHadith();
+                    });
+
+                    prev.addEventListener('click', () => {
+                        hadithIndex = (hadithIndex - 1 + totalHadiths) % totalHadiths;
+                        changeHadith();
+                    });
+
+                    function changeHadith() {
+                        hadithcontainer.innerText = Hadiths[hadithIndex].arab;
+                        number.innerText = `${hadithIndex + 1}/${totalHadiths}`;
+                    }
+
+                    changeHadith();
+                });
+        }
+        let bars = document.querySelector('.bars');
+        let sideBar = document.querySelector('.header ul');
+        bars.addEventListener('click', () => {
+            sideBar.classList.toggle("active");
+        });
+    </script>
+</body>
+
+</html>

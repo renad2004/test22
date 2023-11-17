@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرآن الكريم</title>
+
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=thuluth-decorated" />
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=cairo-bold" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'cairo-bold';
+            outline: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        body {
+            direction: rtl;
+            scroll-behavior: smooth;
+
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            transition: .5s all ease-in-out;
+            background-color: rgb(8, 9, 9);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            color: rgb(255, 255, 255);
+            transition: .5s all ease-in-out;
+        }
+
+        .header .active .container {
+            height: 80px;
+        }
+
+        .header ul {
+            display: flex;
+        }
+
+        .header ul li {
+            position: relative;
+            cursor: pointer;
+            margin: 0 15px;
+        }
+
+        .header ul li::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            background-color: rgb(255, 255, 255);
+            height: 2px;
+            transition: .3s all ease-in-out;
+            width: 0;
+        }
+
+        .header li.active::after,
+        .header li:hover::after {
+            width: 100%;
+        }
+
+        .header .bars {
+            display: none;
+        }
+
+        .header li:not(:first-of-type),
+        .header li:not(:last-of-type) {
+            margin: 0 15px;
+        }
+
+        .header .logo {
+            font-family: 'thuluth-decorated';
+            font-size: 39px;
+            cursor: pointer;
+        }
+
+        .main .container {
+            min-height: 100vh;
+        }
+
+        .xx {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+
+        .main .title {
+            position: absolute;
+            top: 40%;
+            transform: translateX(-50%);
+            color: #000000;
+        }
+
+        .title .btn i {
+            font-size: 25px;
+            margin-right: 20px;
+        }
+
+        .title .btn:hover {
+            color: #fc0707;
+        }
+
+        .title .btn:hover::after {
+            width: 100%;
+        }
+
+        section h3 {
+            font-size: 30px;
+            text-align: center;
+            color: #43a047;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        section h3::after,
+        section h3::before {
+            content: "";
+            position: absolute;
+            background-color: #43a047;
+            height: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        section h3::after {
+            width: 50px;
+            bottom: -10px;
+        }
+
+        section h3::before {
+            width: 100px;
+            bottom: 0px;
+        }
+
+        .surahsContainer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .surahsContainer .surah {
+            min-height: 100px;
+            min-width: 150px;
+            box-shadow: 0 0 5px rgb(0, 0, 0, .4);
+            margin: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: .5s ease-in-out;
+            color: #232323;
+            font-size: 17px;
+            font-family: 'Ruqaa Font', sans-serif;
+
+        }
+
+        .surahsContainer .surah:hover {
+            transform: scale(1.05);
+        }
+
+        .surah-popup {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            background-color: #ffffff;
+            overflow-y: scroll;
+            transform: translateX(100%);
+            font-family: 'Ruqaa Font', sans-serif;
+        }
+
+        .surah-popup.active {
+            transform: translateX(0);
+            transition: .7s transform ease-in-out;
+        }
+
+        .surah-popup::-webkit-scrollbar {
+            width: 10px;
+            background-color: #ffffff;
+        }
+
+        .surah-popup::-webkit-scrollbar-thumb {
+            background-color: #80d647;
+        }
+
+        .close-popup {
+            position: sticky;
+            top: 5px;
+            right: 5px;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 0 4px rgb(5, 255, 5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff0000;
+            cursor: pointer;
+            font-family: 'Ruqaa Font', sans-serif;
+
+        }
+
+        .surah-popup .ayat {
+            padding: 20px;
+            width: calc(100% - 40px);
+            margin-top: 20px;
+            margin-right: 40px;
+            color: #121212;
+            text-align: center;
+            font-family: 'Ruqaa Font', sans-serif;
+        }
+
+        .surah-popup .ayat p {
+            line-height: 2.5;
+            width: 100%;
+            border-bottom: 1px solid #0f05a3;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #121212;
+            font-family: 'Ruqaa Font', sans-serif;
+            background-color: rgb(207, 255, 117);
+        }
+
+        .surah p {
+            font-family: 'Ruqaa Font', sans-serif;
+            font-size: 16px;
+        }
+
+        .header .bars {
+            display: block;
+            font-size: 25px;
+            margin: 10px;
+        }
+
+        .header ul {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 220px;
+            background-color: rgb(0, 0, 0, .6);
+            flex-direction: column;
+            padding: 0 50px;
+            text-align: center;
+            transform: translateX(-100%);
+            transition: .7s transform ease-in-out;
+        }
+
+        .header ul.active {
+            transform: translateX(0);
+        }
+
+        .header li:not(:first-of-type),
+        .header li:not(:Last-of-type) {
+            margin: 15px 0;
+        }
+
+        .logo {
+            margin: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">دليل الحياة الإسلامية</div>
+            <nav>
+                <ul>
+                    <a class="xx" href="index.html">
+                        <li>الصفحة الرئيسية</li>
+                    </a>
+                    <a class="xx" href="القران الكريم.html">
+                        <li>القرآن الكريم</li>
+                    </a>
+                    <a class="xx" href="الاحاديث الشريفة.html">
+                        <li>الأحاديث الشريفة</li>
+                    </a>
+                    <a class="xx" href="وصاية الرسول.html">
+                        <li>وصاية الرسول</li>
+                    </a>
+                    <a class="xx" href="اذكار الصباح و المساء.html">
+                        <li>أذكار الصباح والمساء</li>
+                    </a>
+                </ul>
+            </nav>
+            <div class="bars">
+                <li class="fas fa-bars"></li>
+            </div>
+        </div>
+    </header>
+
+    <section class="quran">
+        <h3>القرآن الكريم</h3>
+        <div class="surahsContainer"></div>
+    </section>
+
+    <div class="surah-popup">
+        <div class="close-popup">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="ayat"></div>
+    </div>
+
+    <script>
+        let surahsContainer = document.querySelector('.surahsContainer');
+
+        getSurahs();
+
+        function getSurahs() {
+            fetch("https://api.alquran.cloud/v1/meta")
+                .then(response => response.json())
+                .then(data => {
+                    let surahs = data.data.surahs.references;
+                    let numberOfSurahs = 114;
+                    surahsContainer.innerHTML = "";
+                    for (let i = 0; i < numberOfSurahs; i++) {
+                        surahsContainer.innerHTML += `
+                <div class="surah">
+                    <p>${surahs[i].name}</p>
+                    <p>${surahs[i].englishName}</p>
+                </div>
+                `;
+                    }
+                    let surahTitles = document.querySelectorAll('.surah');
+                    let popup = document.querySelector('.surah-popup');
+                    let ayatContainer = document.querySelector('.ayat');
+                    surahTitles.forEach((title, index) => {
+                        title.addEventListener('click', () => {
+                            fetch(`http://api.alquran.cloud/v1/surah/${index + 1}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    ayatContainer.innerHTML = "";
+                                    let Ayat = data.data.ayahs;
+                                    Ayat.forEach(ayah => {
+                                        popup.classList.add(`active`);
+                                        ayatContainer.innerHTML += `
+                                <p>${ayah.numberInSurah} - ${ayah.text}</p>`;
+                                    });
+                                });
+                        });
+                    });
+                    let closePopup = document.querySelector('.close-popup');
+                    closePopup.addEventListener('click', () => {
+                        popup.classList.remove('active');
+                    });
+                });
+        }
+
+        let bars = document.querySelector('.bars');
+        let sideBar = document.querySelector('.header ul');
+        bars.addEventListener('click', () => {
+            sideBar.classList.toggle("active");
+        });
+
+
+    </script>
+</body>
+
+</html>
